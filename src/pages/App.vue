@@ -1,5 +1,16 @@
 <script setup lang="ts">
-import CharacterCard from "@components/CharacterCard";
+import { watch } from "vue";
+import CharacterCard from "../components/CharacterCard.vue";
+import { useCharacterStore } from "../stores/CharactersStore";
+
+const characterStore = useCharacterStore();
+
+watch(
+  () => characterStore.$state.filter,
+  async (newFilter2) => {
+    console.log("🚀 ~ newFilter2:", newFilter2);
+  }
+);
 </script>
 
 <template>
@@ -15,14 +26,14 @@ import CharacterCard from "@components/CharacterCard";
       type=" text"
       placeholder="Search..."
       className="input input-ghost text-amber-400 placeholder:text-amber-400"
+      v-model="characterStore.filter"
     />
   </nav>
   <div class="p-3 flex gap-5 flex-wrap justify-around">
-    <CharacterCard />
-    <CharacterCard />
-    <CharacterCard />
-    <CharacterCard />
-    <CharacterCard />
-    <CharacterCard />
+    <CharacterCard
+      v-for="(character, index) in characterStore.getCharacters"
+      :key="index"
+      :character="character"
+    />
   </div>
 </template>
