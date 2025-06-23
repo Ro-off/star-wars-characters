@@ -1,12 +1,26 @@
 import { defineStore } from "pinia";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, ref } from "vue";
 
-// export type Character = ReturnType<
-//   typeof useCharacterStore
-// >["characters"][number],
+export type Character = {
+  name: string;
+  height: string;
+  mass: string;
+  hair_color: string;
+  skin_color: string;
+  eye_color: string;
+  birth_year: string;
+  gender: string;
+  homeworld: string;
+  films: string[];
+  species: string[];
+  vehicles: string[];
+  starships: string[];
+  created: string;
+  edited: string;
+  url: string;
+};
 
 export const useCharacterStore = defineStore("storeId", {
-  // arrow function recommended for full type inference
   state: () => {
     const characters = [
       {
