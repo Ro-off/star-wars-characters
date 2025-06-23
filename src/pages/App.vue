@@ -17,5 +17,12 @@ import CharacterCard from "@components/CharacterCard";
       className="input input-ghost text-amber-400 placeholder:text-amber-400"
     />
   </nav>
-  <div class="p-3"><CharacterCard /></div>
+  <div class="p-3 flex gap-5 flex-wrap justify-around">
+    <CharacterCard />
+    <CharacterCard />
+    <CharacterCard />
+    <CharacterCard />
+    <CharacterCard />
+    <CharacterCard />
+  </div>
 </template>
