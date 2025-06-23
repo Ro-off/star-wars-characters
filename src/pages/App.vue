@@ -1,30 +1,21 @@
 <script setup lang="ts">
-import HelloWorld from "@components/HelloWorld"
+import CharacterCard from "@components/CharacterCard";
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <nav
+    class="flex justify-between p-3 pt-10 pb-6 items-center pl-6 bg-gradient-to-b from-base-100 to-transparent"
+  >
+    <h1
+      class="font-starwrs font-bold text-2xl md:text-3xl lg:text-4xl pl- text-amber-400"
+    >
+      Star Wars characters
+    </h1>
+    <input
+      type=" text"
+      placeholder="Search..."
+      className="input input-ghost text-amber-400 placeholder:text-amber-400"
+    />
+  </nav>
+  <div class="p-3"><CharacterCard /></div>
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
