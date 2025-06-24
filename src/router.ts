@@ -1,13 +1,19 @@
 import { createMemoryHistory, createRouter } from 'vue-router';
 
-import AppView from './pages/SearchPage.vue';
+import DetailsPage from './pages/DetailsPage.vue';
+import SearchPage from './pages/SearchPage.vue';
+
+export const paths = {
+  search: '/',
+  details: '/details',
+};
 
 const routes = [
   {
-    path: '/',
-    component: AppView,
+    path: paths.search,
+    component: SearchPage,
   },
-  //   { path: '/about', component: AboutView },
+  { path: paths.details, component: DetailsPage },
 ];
 
 export const router = createRouter({

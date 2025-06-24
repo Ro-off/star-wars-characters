@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useCharacterStore } from "../stores/CharactersStore";
+import { paths } from '../router';
+import { useCharacterStore } from '../stores/CharactersStore';
 
 const characterStore = useCharacterStore();
 </script>
@@ -7,11 +8,11 @@ const characterStore = useCharacterStore();
   <nav
     class="blur-progressive fixed z-10 flex w-full items-center justify-between p-3 pt-10 pb-6 pl-6"
   >
-    <h1
-      class="font-starwrs pl- text-2xl font-bold text-amber-400 md:text-3xl lg:text-4xl"
-    >
-      Star Wars characters
-    </h1>
+    <RouterLink :to="paths.search">
+      <h1 class="font-starwrs pl- text-2xl font-bold text-amber-400 md:text-3xl lg:text-4xl">
+        Star Wars characters
+      </h1>
+    </RouterLink>
     <input
       type="text"
       placeholder="Search..."
@@ -28,7 +29,7 @@ const characterStore = useCharacterStore();
   overflow: hidden;
 }
 .blur-progressive::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   z-index: 0;

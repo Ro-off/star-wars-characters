@@ -1,16 +1,13 @@
 {
-    "plugins": [
-        "prettier-plugin-tailwindcss",
-        "prettier-plugin-organize-imports"
-    ],
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "printWidth": 100,
-    "tabWidth": 2,
-    "arrowParens": "always",
-    "bracketSpacing": true,
-    "tailwindFunctions": ["clsx", "cva", "tw"],
-    "tailwindAttributes": ["className", "class"]
-    
+  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"],
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "tailwindFunctions": ["clsx", "cva", "tw"],
+  "tailwindAttributes": ["className", "class"],
+  "organizeImportsSkipDestructiveCodeActions": true
 }
