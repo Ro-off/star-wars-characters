@@ -6,7 +6,7 @@ const { character } = defineProps<{ character: Character }>();
 
 <template>
   <div
-    class="card bg-base-100 w-60 h-40 shadow-sm overflow-hidden p-3 gap-2 hover:outline-amber-400 hover:outline-2 cursor-pointer"
+    class="card bg-base-300 w-60 h-40 shadow-sm overflow-hidden p-3 gap-2 hover:outline-amber-400 hover:outline-2 cursor-pointer"
   >
     <h2 class="card-title w-max flex">{{ character.name }}</h2>
     <div class="card-body p-0">

@@ -9,13 +9,11 @@ const character = ref<Character | null>(null);
 
 onMounted(async () => {
   character.value = await currentCharacter.getAllCharacterData('1');
-  console.log('🚀 ~ character:', character.value);
 });
 </script>
 
 <template>
-  <div class="blur-progressive-bottom h-10/12 w-full fixed bottom-0 -z-10" />
-  <!-- <p v-if="currentCharacter.isLoading">Loading...</p> -->
+  <div class="blur-progressive-bottom h-10/12 w-full fixed bottom-0 -z-10 bg-transparent" />
   <main class="text-gray-100 px-4 py-12 overflow-hidden">
     <div class="max-w-4xl mx-auto">
       <router-link to="/" class="text-amber-400 hover:underline text-sm mb-6 inline-block">

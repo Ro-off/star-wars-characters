@@ -11,3 +11,7 @@
 :root {
   background: url(./assets/vecteezy_galaxy-stars-in-the-universe.jpg) center/cover fixed;
 }
+
+body {
+  background: transparent;
+}
