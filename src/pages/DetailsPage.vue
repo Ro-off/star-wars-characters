@@ -36,8 +36,10 @@ onMounted(async () => {
         <dl
           :class="[
             'grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm',
-            '[&_div_*]:text-amber-400 [&_div_*]:w-max ',
-            currentCharacter.isLoading && '[&_div]:skeleton [&_div_*]:text-transparent',
+            '[&_div_*]:w-max ',
+            currentCharacter.isLoading
+              ? '[&_div]:skeleton [&_div_*]:text-transparent'
+              : '[&_div_dt]:text-amber-400 ',
           ]"
         >
           <div>
