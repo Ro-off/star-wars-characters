@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Character } from "../stores/CharactersStore";
+import type { Character } from '../stores/CharactersStore';
 
 const { character } = defineProps<{ character: Character }>();
 </script>

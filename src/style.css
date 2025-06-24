@@ -1,13 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "daisyui" {
-    themes: luxury --default
+  themes: luxury --default;
 }
 
-@theme {  
-    --font-sans: 'Orbitron', sans-serif;
-    --font-starwrs: 'Star Wars', sans-serif;
+@theme {
+  --font-sans: 'Orbitron', sans-serif;
+  --font-starwrs: 'Star Wars', sans-serif;
 }
 
-:root{
-    background: url(./assets/vecteezy_galaxy-stars-in-the-universe.jpg) center/cover fixed;
+:root {
+  background: url(./assets/vecteezy_galaxy-stars-in-the-universe.jpg) center/cover fixed;
 }
