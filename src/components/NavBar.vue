@@ -15,7 +15,7 @@ const characterStore = useCharacterStore();
     <input
       type="text"
       placeholder="Search..."
-      class="input input-ghost text-amber-400 placeholder:text-amber-400 focus:bg-transparent focus:outline-0"
+      class="input input-ghost text-amber-400 placeholder:text-amber-400 focus:bg-transparent focus:outline-0 w-32 md:w-40 lg:w-60"
       v-model="characterStore.filter"
     />
   </nav>
