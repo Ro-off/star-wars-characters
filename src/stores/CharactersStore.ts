@@ -1,6 +1,6 @@
-import { defineStore } from "pinia";
-import { ref, watch } from "vue";
-import { useCharactersService } from "../services/CharactersService";
+import { defineStore } from 'pinia';
+import { reactive, ref, watch } from 'vue';
+import { useCharactersService } from '../services/CharactersService';
 
 export type Character = {
   name: string;
@@ -21,27 +21,39 @@ export type Character = {
   url: string;
 };
 
-const { getFiltered } = useCharactersService();
+type FilteredCharacters = { value: Character[]; isLoading: boolean; filter: string };
+const characterStore = useCharactersService();
 
-// const allCharacters
-export const useCharacterStore = defineStore("storeId", {
+export const useCharacterStore = defineStore('storeId', {
   state: () => {
-    const filteredCharacters = ref<Character[]>([]);
-    const filter = ref("");
-    const isLoading = ref(false);
+    const currentCharacter = reactive({
+      isLoading: false,
+      getAllCharacterData: async (id: string) => {
+        currentCharacter.isLoading = true;
+        return await characterStore.getSingle(id).then((character) => {
+          currentCharacter.isLoading = false;
+          return character;
+        });
+      },
+    });
+
+    const filteredCharacters = reactive<FilteredCharacters>({
+      value: [],
+      isLoading: false,
+      filter: '',
+    });
 
     const fetchFilteredCharacters = async () => {
-      isLoading.value = true;
-      filteredCharacters.value = await getFiltered(filter.value);
-      isLoading.value = false;
+      filteredCharacters.isLoading = true;
+      filteredCharacters.value = await characterStore.getFiltered(filteredCharacters.filter);
+      filteredCharacters.isLoading = false;
     };
 
-    watch(filter, fetchFilteredCharacters, { immediate: true });
+    watch(() => filteredCharacters.filter, fetchFilteredCharacters, { immediate: true });
 
     return {
-      filter,
-      isLoading,
       filteredCharacters,
+      currentCharacter,
     };
   },
 });

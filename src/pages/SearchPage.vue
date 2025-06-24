@@ -3,18 +3,18 @@ import CharacterCard from '../components/CharacterCard.vue';
 import { paths } from '../router';
 import { useCharacterStore } from '../stores/CharactersStore';
 
-const characterStore = useCharacterStore();
+const { filteredCharacters } = useCharacterStore();
 </script>
 
 <template>
   <RouterLink :to="paths.details" class="p-3 flex gap-5 flex-wrap justify-around">
     <CharacterCard
-      v-if="!characterStore.isLoading && characterStore.filteredCharacters.length"
-      v-for="(character, index) in characterStore.filteredCharacters"
+      v-if="!filteredCharacters.isLoading && filteredCharacters.value.length"
+      v-for="(character, index) in filteredCharacters.value"
       :key="index"
       :character="character"
     />
-    <p v-else-if="!characterStore.isLoading">No results!</p>
+    <p v-else-if="!filteredCharacters.isLoading">No results!</p>
     <div
       v-else
       v-for="index in 48"

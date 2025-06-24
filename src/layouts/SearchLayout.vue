@@ -2,7 +2,7 @@
 import { paths } from '../router';
 import { useCharacterStore } from '../stores/CharactersStore';
 
-const characterStore = useCharacterStore();
+const { filteredCharacters } = useCharacterStore();
 </script>
 <template>
   <nav
@@ -17,7 +17,7 @@ const characterStore = useCharacterStore();
       type="text"
       placeholder="Search..."
       class="input input-ghost w-32 text-amber-400 placeholder:text-amber-400 focus:bg-transparent focus:outline-0 md:w-40 lg:w-60"
-      v-model="characterStore.filter"
+      v-model="filteredCharacters.filter"
     />
   </nav>
   <div class="h-30"></div>

@@ -1,33 +1,21 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import type { Character } from '../stores/CharactersStore';
+import { useCharacterStore } from '../stores/CharactersStore';
 
-const character: Character = {
-  name: 'Luke Skywalker',
-  height: '172',
-  mass: '77',
-  hair_color: 'blond',
-  skin_color: 'fair',
-  eye_color: 'blue',
-  birth_year: '19BBY',
-  gender: 'male',
-  homeworld: 'https://swapi.info/api/planets/1',
-  films: [
-    'https://swapi.info/api/films/1',
-    'https://swapi.info/api/films/2',
-    'https://swapi.info/api/films/3',
-    'https://swapi.info/api/films/6',
-  ],
-  species: [],
-  vehicles: ['https://swapi.info/api/vehicles/14', 'https://swapi.info/api/vehicles/30'],
-  starships: ['https://swapi.info/api/starships/12', 'https://swapi.info/api/starships/22'],
-  created: '2014-12-09T13:50:51.644000Z',
-  edited: '2014-12-20T21:17:56.891000Z',
-  url: 'https://swapi.info/api/people/1',
-};
+const { currentCharacter } = useCharacterStore();
+
+const character = ref<Character | null>(null);
+
+onMounted(async () => {
+  character.value = await currentCharacter.getAllCharacterData('1');
+  console.log('🚀 ~ character:', character.value);
+});
 </script>
 
 <template>
   <div class="blur-progressive-bottom h-10/12 w-full fixed bottom-0 -z-10" />
+  <!-- <p v-if="currentCharacter.isLoading">Loading...</p> -->
   <main class="text-gray-100 px-4 py-12 overflow-hidden">
     <div class="max-w-4xl mx-auto">
       <router-link to="/" class="text-amber-400 hover:underline text-sm mb-6 inline-block">
@@ -35,78 +23,104 @@ const character: Character = {
       </router-link>
 
       <div class="p-6">
-        <h1 class="text-2xl font-bold text-amber-300 mb-6">
-          {{ character?.name ?? 'Unknown Character' }}
-        </h1>
-
-        <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm">
-          <div>
-            <dt class="text-amber-400">Height:</dt>
-            <dd>{{ character?.height }} cm</dd>
-          </div>
-          <div>
-            <dt class="text-amber-400">Mass:</dt>
-            <dd>{{ character?.mass }} kg</dd>
-          </div>
-          <div>
-            <dt class="text-amber-400">Hair Color:</dt>
-            <dd>{{ character?.hair_color }}</dd>
-          </div>
-          <div>
-            <dt class="text-amber-400">Skin Color:</dt>
-            <dd>{{ character?.skin_color }}</dd>
-          </div>
-          <div>
-            <dt class="text-amber-400">Eye Color:</dt>
-            <dd>{{ character?.eye_color }}</dd>
-          </div>
-          <div>
-            <dt class="text-amber-400">Birth Year:</dt>
-            <dd>{{ character?.birth_year }}</dd>
-          </div>
-          <div>
-            <dt class="text-amber-400">Gender:</dt>
-            <dd>{{ character?.gender }}</dd>
-          </div>
-          <div>
-            <dt class="text-amber-400">Homeworld:</dt>
-            <dd>{{ character?.homeworld }}</dd>
-          </div>
-          <div>
-            <dt class="text-amber-400">Created:</dt>
-            <dd>{{ character?.created }}</dd>
-          </div>
-          <div>
-            <dt class="text-amber-400">Edited:</dt>
-            <dd>{{ character?.edited }}</dd>
-          </div>
-          <div>
-            <dt class="text-amber-400">URL:</dt>
-            <dd>
-              <a :href="character?.url" class="text-blue-400 underline">{{ character?.url }}</a>
-            </dd>
-          </div>
-        </dl>
-
-        <div class="mt-8">
-          <h2 class="text-lg font-semibold text-amber-300 mb-2">Films</h2>
-          <ul class="list-disc list-inside text-sm space-y-1">
-            <li v-for="film in character?.films" :key="film">{{ film }}</li>
-          </ul>
+        <div class="">
+          <h1
+            :class="[
+              'text-2xl font-bold text-amber-300 mb-6',
+              currentCharacter.isLoading && 'skeleton text-transparent w-max',
+            ]"
+          >
+            {{ character?.name ?? 'Unknown character' }}
+          </h1>
         </div>
+        <dl
+          :class="[
+            'grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm',
+            '[&_div_*]:text-amber-400 [&_div_*]:w-max ',
+            currentCharacter.isLoading && '[&_div]:skeleton [&_div_*]:text-transparent',
+          ]"
+        >
+          <div>
+            <dt>Height:</dt>
+            <dd>{{ character?.height ? character.height + ' cm' : 'unknown' }}</dd>
+          </div>
+          <div>
+            <dt>Mass:</dt>
+            <dd>{{ character?.mass ? character.mass + ' kg' : 'unknown' }}</dd>
+          </div>
+          <div>
+            <dt>Hair Color:</dt>
+            <dd>{{ character?.hair_color ?? 'unknown' }}</dd>
+          </div>
+          <div>
+            <dt>Skin Color:</dt>
+            <dd>{{ character?.skin_color ?? 'unknown' }}</dd>
+          </div>
+          <div>
+            <dt>Eye Color:</dt>
+            <dd>{{ character?.eye_color ?? 'unknown' }}</dd>
+          </div>
+          <div>
+            <dt>Birth Year:</dt>
+            <dd>{{ character?.birth_year ?? 'unknown' }}</dd>
+          </div>
+          <div>
+            <dt>Gender:</dt>
+            <dd>{{ character?.gender ?? 'unknown' }}</dd>
+          </div>
+          <div>
+            <dt>Homeworld:</dt>
+            <dd>{{ character?.homeworld ?? 'unknown' }}</dd>
+          </div>
+          <div>
+            <dt>Created:</dt>
+            <dd>{{ character?.created ?? 'unknown' }}</dd>
+          </div>
+          <div>
+            <dt>Edited:</dt>
+            <dd>{{ character?.edited ?? 'unknown' }}</dd>
+          </div>
 
-        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- <div>
+            <dt >URL:</dt>
+            <dd>
+              <a :href="character?.url" class="text-blue-400 underline">{{
+                character?.url ?? 'unknown'
+              }}</a>
+            </dd>
+          </div> -->
+        </dl>
+        <!-- <div :class="[currentCharacter.isLoading && '[&_div]:skeleton']"> -->
+
+        <div
+          :class="[
+            'mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4',
+            currentCharacter.isLoading &&
+              '[&_div]:skeleton [&_div]:h-30 [&_div_*]:text-transparent',
+          ]"
+        >
+          <div>
+            <h2 class="text-lg font-semibold text-amber-300 mb-2">Films</h2>
+            <ul class="list-disc list-inside text-sm space-y-1">
+              <li v-for="film in character?.films" :key="film">{{ film }}</li>
+            </ul>
+          </div>
+
           <div>
             <h2 class="text-lg font-semibold text-amber-300 mb-2">Species</h2>
             <ul class="list-disc list-inside text-sm space-y-1">
-              <li v-for="species in character?.species" :key="species">{{ species }}</li>
+              <li v-for="species in character?.species" :key="species">
+                {{ species }}
+              </li>
             </ul>
           </div>
 
           <div>
             <h2 class="text-lg font-semibold text-amber-300 mb-2">Vehicles</h2>
             <ul class="list-disc list-inside text-sm space-y-1">
-              <li v-for="vehicle in character?.vehicles" :key="vehicle">{{ vehicle }}</li>
+              <li v-for="vehicle in character?.vehicles" :key="vehicle">
+                {{ vehicle }}
+              </li>
             </ul>
           </div>
 
@@ -117,6 +131,7 @@ const character: Character = {
             </ul>
           </div>
         </div>
+        <!-- </div> -->
       </div>
     </div>
   </main>
