@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import type { Character } from '../stores/CharactersStore';
 import { useCharacterStore } from '../stores/CharactersStore';
 
 const { currentCharacter } = useCharacterStore();
-
+const route = useRoute();
+const router = useRouter();
 const character = ref<Character | null>(null);
 
 onMounted(async () => {
-  character.value = await currentCharacter.getAllCharacterData('1');
+  const userId = route.params.id;
+  if (typeof userId === 'string') {
+    character.value = await currentCharacter.getAllCharacterData(userId);
+  } else {
+    router.push('/');
+  }
 });
 </script>
 

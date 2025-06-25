@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { paths } from '../router';
 import type { Character } from '../stores/CharactersStore';
-
 const { character } = defineProps<{ character: Character }>();
+
+const urlArr = character.url.split('/');
+const id = urlArr[urlArr.length - 1];
 </script>
 
 <template>
-  <div
+  <RouterLink
+    :to="paths.details + id"
     class="card bg-base-300 w-60 h-40 shadow-sm overflow-hidden p-3 gap-2 hover:outline-amber-400 hover:outline-2 cursor-pointer"
   >
     <h2 class="card-title w-max flex">{{ character.name }}</h2>
@@ -33,5 +37,5 @@ const { character } = defineProps<{ character: Character }>();
 
       <div className="card-actions justify-end"></div>
     </div>
-  </div>
+  </RouterLink>
 </template>

@@ -13,7 +13,7 @@ const routes = [
     path: paths.search,
     component: SearchPage,
   },
-  { path: paths.details, component: DetailsPage },
+  { path: paths.details + ':id', component: DetailsPage },
 ];
 
 export const router = createRouter({
