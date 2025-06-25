@@ -11,11 +11,11 @@ export type Character = {
   eye_color: string;
   birth_year: string;
   gender: string;
-  homeworld: string;
-  films: string[];
-  species: string[];
-  vehicles: string[];
-  starships: string[];
+  homeworld: string | undefined;
+  films: (string | undefined)[];
+  species: (string | undefined)[];
+  vehicles: (string | undefined)[];
+  starships: (string | undefined)[];
   created: string;
   edited: string;
   url: string;
@@ -30,7 +30,7 @@ export const useCharacterStore = defineStore('storeId', {
       isLoading: false,
       getAllCharacterData: async (id: string) => {
         currentCharacter.isLoading = true;
-        return await characterStore.getSingle(id).then((character) => {
+        return await characterStore.getAllCharacterData(id).then((character) => {
           currentCharacter.isLoading = false;
           return character;
         });

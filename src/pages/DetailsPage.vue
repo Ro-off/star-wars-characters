@@ -8,6 +8,15 @@ const { currentCharacter } = useCharacterStore();
 const route = useRoute();
 const router = useRouter();
 const character = ref<Character | null>(null);
+console.log('🚀 ~ character:', character.value);
+
+const formatDate = (dateStr?: string) => {
+  if (!dateStr) return 'unknown';
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return 'unknown';
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+};
 
 onMounted(async () => {
   const userId = route.params.id;
@@ -81,23 +90,13 @@ onMounted(async () => {
           </div>
           <div>
             <dt>Created:</dt>
-            <dd>{{ character?.created ?? 'unknown' }}</dd>
+            <dd>{{ formatDate(character?.created) ?? 'unknown' }}</dd>
           </div>
           <div>
             <dt>Edited:</dt>
-            <dd>{{ character?.edited ?? 'unknown' }}</dd>
+            <dd>{{ formatDate(character?.edited) ?? 'unknown' }}</dd>
           </div>
-
-          <!-- <div>
-            <dt >URL:</dt>
-            <dd>
-              <a :href="character?.url" class="text-blue-400 underline">{{
-                character?.url ?? 'unknown'
-              }}</a>
-            </dd>
-          </div> -->
         </dl>
-        <!-- <div :class="[currentCharacter.isLoading && '[&_div]:skeleton']"> -->
 
         <div
           :class="[
@@ -109,36 +108,55 @@ onMounted(async () => {
           <div>
             <h2 class="text-lg font-semibold text-amber-300 mb-2">Films</h2>
             <ul class="list-disc list-inside text-sm space-y-1">
-              <li v-for="film in character?.films" :key="film">{{ film }}</li>
+              <li v-if="character?.films.length" v-for="film in character?.films" :key="film">
+                {{ film }}
+              </li>
+              <p v-else>No data</p>
             </ul>
           </div>
 
           <div>
             <h2 class="text-lg font-semibold text-amber-300 mb-2">Species</h2>
             <ul class="list-disc list-inside text-sm space-y-1">
-              <li v-for="species in character?.species" :key="species">
+              <li
+                v-if="character?.species.length"
+                v-for="species in character?.species"
+                :key="species"
+              >
                 {{ species }}
               </li>
+              <p v-else>No data</p>
             </ul>
           </div>
 
           <div>
             <h2 class="text-lg font-semibold text-amber-300 mb-2">Vehicles</h2>
             <ul class="list-disc list-inside text-sm space-y-1">
-              <li v-for="vehicle in character?.vehicles" :key="vehicle">
+              <li
+                v-if="character?.vehicles.length"
+                v-for="vehicle in character?.vehicles"
+                :key="vehicle"
+              >
                 {{ vehicle }}
               </li>
+              <p v-else>No data</p>
             </ul>
           </div>
 
           <div>
             <h2 class="text-lg font-semibold text-amber-300 mb-2">Starships</h2>
             <ul class="list-disc list-inside text-sm space-y-1">
-              <li v-for="ship in character?.starships" :key="ship">{{ ship }}</li>
+              <li
+                v-if="character?.starships.length"
+                v-for="ship in character?.starships"
+                :key="ship"
+              >
+                {{ ship }}
+              </li>
+              <p v-else>No data</p>
             </ul>
           </div>
         </div>
-        <!-- </div> -->
       </div>
     </div>
   </main>
