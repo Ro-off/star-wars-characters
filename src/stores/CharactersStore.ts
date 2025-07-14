@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { reactive, ref, watch } from 'vue';
+import { reactive, watch } from 'vue';
 import { useCharactersService } from '../services/CharactersService';
 
 export type Character = {

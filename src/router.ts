@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 import DetailsPage from './pages/DetailsPage.vue';
 import SearchPage from './pages/SearchPage.vue';
@@ -18,6 +18,6 @@ const routes = [
 ];
 
 export const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory('/star-wars-characters/'),
   routes,
 });
