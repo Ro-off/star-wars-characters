@@ -5,15 +5,16 @@ import SearchPage from './pages/SearchPage.vue';
 
 export const paths = {
   search: '/',
-  details: '/details',
+  details: 'details',
 };
 
 const routes = [
   {
     path: paths.search,
     component: SearchPage,
+    children: [{ path: paths.details + ':id', component: DetailsPage }],
+    meta: { transition: 'slide-right' },
   },
-  { path: paths.details + ':id', component: DetailsPage },
 ];
 
 export const router = createRouter({
