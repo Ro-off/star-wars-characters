@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "deploy": "npm run build && echo 'Build completed! Push to main branch to deploy to GitHub Pages.'",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build --output-dir dist/storybook"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.10",
